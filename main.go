@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"glstatus/components"
 	"os"
+	"time"
 )
 
 var version bool
@@ -27,10 +29,22 @@ func main() {
 		fmt.Printf("glstatus-%s\n", "0.0.1")
 		return
 	}
+	for {
+		var status string
+		for _, mod := range modules {
+			output := mod.Producer(mod.Argument)
+			if output == "" {
+				output = components.UnknownStr
+			}
+			status += fmt.Sprintf(mod.Format, output)
+		}
 
-	if !silentMode {
-		fmt.Println("Print hardware information")
-	} else {
-		fmt.Println("X11 EWMH root window property not implemented yet")
+		if !silentMode {
+			fmt.Print("\r" + status)
+		} else {
+			fmt.Println("X11 EWMH root window property not implemented yet")
+		}
+
+		time.Sleep(components.UpdateInterval)
 	}
 }
