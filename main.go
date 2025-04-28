@@ -42,7 +42,7 @@ func main() {
 		if !silentMode {
 			fmt.Print("\r" + status)
 		} else {
-			fmt.Println("X11 EWMH root window property not implemented yet")
+			fmt.Println(status)
 		}
 
 		time.Sleep(components.UpdateInterval)
