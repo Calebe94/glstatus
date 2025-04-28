@@ -43,6 +43,7 @@ func main() {
 			fmt.Print("\r" + status)
 		} else {
 			fmt.Println(status)
+			return
 		}
 
 		time.Sleep(components.UpdateInterval)
